@@ -9,7 +9,7 @@ const clear = document.getElementById("clear");
 
 let viewTimeout1, viewTimeout2;
 
-function msg(txt, target) {
+function showError(txt, target) {
   target.innerHTML = txt;
   if (viewTimeout1) clearTimeout(viewTimeout1);
   viewTimeout1 = setTimeout(() => {
@@ -19,33 +19,38 @@ function msg(txt, target) {
       target.innerHTML = "";
       target.classList.toggle("fade");
     }, 1000);
-  }, 500);
+  }, 1000);
   return false;
 }
 
 function showBlock(header, data) {
   blockHeader.innerHTML = header;
-  blockResult.innerHTML = JSON.stringify(data);
+  blockResult.innerHTML = JSON.stringify(data, null, 2);
   block.style.display = "block";
   clear.style.display = "block";
 }
 function viewBlock() {
+  block.style.display = "none";
   const number = blockNumber.value;
-  if (!number) return msg("Enter a block number.", viewMessage);
+  if (!number) return showError("Enter a block number.", viewMessage);
 
   fetch(`block/${number}`)
     .then(resp => resp.json())
     .then(data => {
-      console.log(data);
-      showBlock(`Display Block ${number}`, data);
+      if (data.error) showError(data.error, viewMessage);
+      else showBlock(`Display Block ${number}`, data);
     })
-    .catch(e => console.log("Fetch failed with error =>", e));
+    .catch(e => {
+      const msg = `Fetch failed with error => ${e}`;
+      console.log(msg);
+      showError(msg, viewMessage);
+    });
   return false;
 }
 
 function addBlock() {
   const data = blockData.value;
-  if (!data) return msg("Enter block data.", addMessage);
+  if (!data) return showError("Enter block data.", addMessage);
 
   fetch(`block`, {
     headers: {
@@ -61,7 +66,11 @@ function addBlock() {
       const number = data.height;
       showBlock(`Added Block ${number}`, data);
     })
-    .catch(e => console.log("Fetch failed with error =>", e));
+    .catch(e => {
+      const msg = `Add block failed with error => ${e}`;
+      console.log(msg);
+      showError(msg, addMessage);
+    });
   return false;
 }
 

@@ -5,10 +5,13 @@
 - This project uses:
   - Node v10.8.0
   - Express v4.16.3
-  - [jestjs](https://jestjs.io)
+  - Testing is done by [Jestjs](https://jestjs.io) and
+    [supertest](https://www.npmjs.com/package/supertest).
   - Google Chrome 68.0.3440.106 - for web frontend testing
 - If required the code functionality can be tested by running `node test.js`
   or via as follows.
+
+Note that I left the console.log on the server screen.
 
 ```
 yarn
@@ -17,14 +20,4 @@ yarn z
 
 # Scratch Pad
 
-Any text below this can be ignored. It used as scratch pad.
-
-## Testing
-
-Command to use for debugging code during a jest test run.
-
-```
-node --inspect-brk ./node_modules/.bin/jest -it "show blockchain"
-```
-
-In chrome use `chrome://inspect` to get a debugger.
+Any text below this can be ignored. It is used as scratch pad.
