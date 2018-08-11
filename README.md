@@ -15,11 +15,20 @@
 
 ## Run Project
 
-To install dependences and start the server do the following:
+To install dependencies and start the server do the following:
 
 ```
 yarn
 yarn start
+```
+
+The web API detailed in the next section can be access via a minimal GUI at http://localhost:8000 or using curl with the following commands.
+
+```
+# view block - block number follows block below
+curl http://localhost:8000/block/0
+# add block
+curl -X "POST" "http://localhost:8000/block" -H 'Content-Type: application/json' -d $'{"body":"block body contents"}'
 ```
 
 ## Web API
@@ -28,8 +37,8 @@ The server provides the following endpoints.
 
 ### http://localhost:8000/block/{BLOCK_HEIGHT} GET
 
-When a GET request is preformed at the URL noted above, the block data at {BLOCK_HEIGHT} is returned in a JSON format.
+When a GET request is performed at the URL noted above, the block data at {BLOCK_HEIGHT} is returned in a JSON format.
 
 ### http://localhost:8000/block POST
 
-When a POST request is preformed at the URL noted above, with a JSON body in the following format { "body" : "data for block" }. The returned value will be the insertd block data in a JSON format.
+When a POST request is performed at the URL noted above, with a JSON body in the following format { "body" : "data for block" }. The returned value will be the inserted block data in a JSON format.
