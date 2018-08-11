@@ -1,0 +1,24 @@
+{
+  "name": "project3bc-rest-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js",
+    "a": "jest -t \"get block\"",
+    "b": "jest -t \"add block\""
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.16.3",
+    "level": "^4.0.0"
+  },
+  "devDependencies": {
+    "jest": "^23.4.2",
+    "nodemon": "^1.18.3",
+    "rimraf": "^2.6.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
