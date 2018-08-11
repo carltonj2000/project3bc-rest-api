@@ -49,6 +49,7 @@ function viewBlock() {
 }
 
 function addBlock() {
+  block.style.display = "none";
   const data = blockData.value;
   if (!data) return showError("Enter block data.", addMessage);
 
@@ -58,7 +59,7 @@ function addBlock() {
       "Content-Type": "application/json"
     },
     method: "POST",
-    body: JSON.stringify({ data: data })
+    body: JSON.stringify({ body: data })
   })
     .then(resp => resp.json())
     .then(data => {

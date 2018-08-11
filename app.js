@@ -22,10 +22,10 @@ app.get("/block/:blockHeight", (req, res) => {
 });
 
 app.post("/block", (req, res) => {
-  const { data } = req.body;
-  if (!data) return res.send(`{"error": "Add block requires data."}`);
+  const { body } = req.body;
+  if (!body) return res.send(`{"error": "Add block requires body."}`);
   app.chain
-    .addBlock(new Block(data))
+    .addBlock(new Block(body))
     .then(block => {
       console.log("add blk =>", block);
       res.send(block);

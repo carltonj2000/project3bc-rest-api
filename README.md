@@ -5,19 +5,31 @@
 - This project uses:
   - Node v10.8.0
   - Express v4.16.3
-  - Testing is done by [Jestjs](https://jestjs.io) and
-    [supertest](https://www.npmjs.com/package/supertest).
   - Google Chrome 68.0.3440.106 - for web frontend testing
-- If required the code functionality can be tested by running `node test.js`
-  or via as follows.
+  - To Do - Not necessary to meet project goals
+    - Remove console.log on the server and client application.
+    - Complete coding index.test.js tests using
+      [jestjs](https://jestjs.io)
+      and
+      [supertest](https://www.npmjs.com/package/supertest).
 
-Note that I left the console.log on the server screen.
+## Run Project
+
+To install dependences and start the server do the following:
 
 ```
 yarn
-yarn z
+yarn start
 ```
 
-# Scratch Pad
+## Web API
 
-Any text below this can be ignored. It is used as scratch pad.
+The server provides the following endpoints.
+
+### http://localhost:8000/block/{BLOCK_HEIGHT} GET
+
+When a GET request is preformed at the URL noted above, the block data at {BLOCK_HEIGHT} is returned in a JSON format.
+
+### http://localhost:8000/block POST
+
+When a POST request is preformed at the URL noted above, with a JSON body in the following format { "body" : "data for block" }. The returned value will be the insertd block data in a JSON format.
