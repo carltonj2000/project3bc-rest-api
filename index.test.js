@@ -1,28 +1,51 @@
-const { Blockchain, Block, chainDB } = require("./simpleChain");
+const request = require("supertest");
 const rimraf = require("rimraf"); // utility to remove a non empty directory
+const app = require("./app");
+const { chainDB } = require("./simpleChain");
 
-test("get block", async done => {
-  let blockchain = new Blockchain();
-  blockchain
-    .finishActions()
-    .then(() => done())
-    .catch(e => console.log(e) || done());
+test("clear blockchain", done => {
+  rimraf(chainDB, e => {
+    if (e) console.error("Failed deleting DB", e);
+    done();
+  });
 });
 
-test("add block", done => {
-  let blockchain = new Blockchain();
-  blockchain.validateBlock(0);
-  blockchain.finishActions().then(() => done());
+test("test server responds", () => {
+  return (
+    request(app)
+      .get("/")
+      //.expect(200) // short hand and same as line below
+      .then(response => expect(response.statusCode).toBe(200))
+  );
 });
 
-test("get chain", async done => {
-  let blockchain = new Blockchain();
-  blockchain
-    .finishActions()
-    .then(() => done())
-    .catch(e => console.log(e) || done());
+function getBlock(block) {
+  return request(app)
+    .get(`/block/${block}`)
+    .expect("Content-type", /json/)
+    .then(resp => {
+      console.log(resp.text);
+      return resp;
+    });
+}
+test("get block 0", () => {
+  return getBlock(0);
 });
 
-test("clear chain", async done => {
-  await rimraf(chainDB, e => e && console.error("Failed deleting DB", e));
+test("add block", () => {
+  const body = "some data";
+
+  return request(app)
+    .post("/block")
+    .send({ body: body })
+    .expect("Content-type", /json/)
+    .expect(200)
+    .then(resp => {
+      console.log(resp.text);
+      return resp;
+    });
+});
+
+test("get block 1", () => {
+  return getBlock(1);
 });

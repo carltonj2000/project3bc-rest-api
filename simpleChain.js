@@ -32,8 +32,8 @@ class Block {
 |  ================================================*/
 
 class Blockchain {
-  constructor(log = true) {
-    this.log = true;
+  constructor(log = false) {
+    this.log = log;
     this.inProgress = Promise.resolve();
     this.inProgress = this.inProgress
       .then(() => this.getHeight())
